@@ -2,19 +2,18 @@ import os
 import time
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_mysqldb import MySQL
+from MySQLdb import OperationalError
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
 
-# Configure MySQL from environment variables
 app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST', 'localhost')
 app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER', 'default_user')
 app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD', 'default_password')
 app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB', 'default_db')
 
-# Initialize MySQL
 mysql = MySQL(app)
 
 def init_db():

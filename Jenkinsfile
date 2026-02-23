@@ -8,10 +8,11 @@ pipeline {
         }
         stage('Build and Deploy with Docker Compose'){
             steps {
-                sh 'sudo chown -R jenkins:jenkins .'
-                sh 'sudo chmod -R 755 static'
-                sh 'docker compose down --remove-orphans || true'
-                sh 'docker compose up -d --build --force-recreate'
+                sh 'docker-compose --version'
+               
+                sh 'docker-compose down --remove-orphans || true'
+                
+                sh 'docker-compose up -d --build --force-recreate'
             }
         }
 

@@ -14,7 +14,7 @@ pipeline {
         stage('Deploy with Docker Compose'){
             steps {
                 sh 'sudo chmod -R 755 static'
-                sh 'docker compose down || true'
+                sh 'docker compose down --remove-orphans || true'
                 sh 'docker compose up -d --build --force-recreate'
             }
         }

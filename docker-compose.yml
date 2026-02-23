@@ -5,11 +5,10 @@ services:
     container_name: mysql
     image: mysql
     environment:
-      # Use ROOT password for simplicity since you specified user 'root' in Flask
-      MYSQL_ROOT_PASSWORD: Rohith@2006
-      MYSQL_DATABASE: mydatabase
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
     ports:
-      - "3306:3306" # FIXED: MySQL uses 3306, not 5000
+      - "3306:3306" 
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
@@ -26,8 +25,8 @@ services:
     environment:
       MYSQL_HOST: db
       MYSQL_USER: root
-      MYSQL_PASSWORD: Rohith@2006
-      MYSQL_DB: mydatabase
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB: ${MYSQL_DB}
     ports:
       - "5000:5000"
     depends_on:

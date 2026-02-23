@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        MYSQL_PASSWORD = credentials('MYSQL_PWD_VAR')
+        MYSQL_DB       = credentials('MYSQL_DB_VAR')
+    }
     stages{
         stage('Clone Code'){
             steps{

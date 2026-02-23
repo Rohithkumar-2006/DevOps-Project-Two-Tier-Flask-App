@@ -5,48 +5,36 @@ services:
     container_name: mysql
     image: mysql
     environment:
-      MYSQL_PASSWORD: Rohith@2006
-      MYSQL_DB: mydatabase
+      # Use ROOT password for simplicity since you specified user 'root' in Flask
+      MYSQL_ROOT_PASSWORD: Rohith@2006
+      MYSQL_DATABASE: mydatabase
     ports:
-    - "5000:5000"
+      - "3306:3306" # FIXED: MySQL uses 3306, not 5000
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
       - flask-db-net
     restart: always
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 60s
-
 
   flask:
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     volumes:
       - ./static:/app/static
     container_name: flask-app
     environment:
-      MYSQL_HOST: 127.0.0.1
+      MYSQL_HOST: db
       MYSQL_USER: root
       MYSQL_PASSWORD: Rohith@2006
       MYSQL_DB: mydatabase
     ports:
       - "5000:5000"
     depends_on:
-      - mysql
+      - db 
     networks:
       - flask-db-net
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 60s
 
 volumes:
   mysql-data:

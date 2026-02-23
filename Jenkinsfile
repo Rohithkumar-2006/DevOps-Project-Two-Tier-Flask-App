@@ -1,5 +1,5 @@
-pipeline{
-    agents any
+pipeline {
+    agent any
     stages{
         stage('Clone Code'){
             steps{
@@ -13,8 +13,9 @@ pipeline{
         }
         stage('Deploy with Docker Compose'){
             steps {
+                sh 'sudo chmod -R 755 static'
                 sh 'docker compose down || true'
-                sh 'docker compose up -d --build'
+                sh 'docker compose up -d --build --force-recreate'
             }
         }
 

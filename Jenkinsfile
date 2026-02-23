@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Docker Image'){
             steps{
-                sh 'docker build -t MyFlaskApp:latest .'
+                sh 'docker build -t myflaskapp:latest .'
             }
         }
         stage('Deploy with Docker Compose'){

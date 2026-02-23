@@ -6,12 +6,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Rohithkumar-2006/DevOps-Project-Two-Tier-Flask-App'
             }
         }
-        stage('Build Docker Image'){
-            steps{
-                sh 'docker build -t myflaskapp:latest .'
-            }
-        }
-        stage('Deploy with Docker Compose'){
+        stage('Build and Deploy with Docker Compose'){
             steps {
                 sh 'sudo chmod -R 755 static'
                 sh 'docker compose down --remove-orphans || true'
